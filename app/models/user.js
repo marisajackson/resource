@@ -1,7 +1,7 @@
 'use strict';
 
 var users = global.nss.db.collection('users');
-// var Mongo = require('mongodb');
+var Mongo = require('mongodb');
 var _ = require('lodash');
 
 class User {
@@ -15,6 +15,10 @@ class User {
     this.workers = [];
     this.consumption = 1;
   }
+
+  // isPlantable(dataplot){
+  //   return (dataplot <= this.plots);
+  // }
 
   // get isAutoGrowAvailable(){
   //   var autogrow = _(this.items).any(i=>i.type === 'autogrow');
@@ -46,13 +50,13 @@ class User {
     });
   }
 
-  // static findByUserId(userId, fn){
-  //   userId = Mongo.ObjectID(userId);
-  //   users.findOne({_id:userId}, (err, user)=>{
-  //     user = _.create(User.prototype, user);
-  //     fn(user);
-  //   });
-  // }
+  static findByUserId(userId, fn){
+    userId = Mongo.ObjectID(userId);
+    users.findOne({_id:userId}, (err, user)=>{
+      user = _.create(User.prototype, user);
+      fn(user);
+    });
+  }
 
 }
 

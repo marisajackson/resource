@@ -10,3 +10,9 @@ exports.login = (req, res)=>{
     });
   });
 };
+
+exports.dashboard = (req, res)=>{
+  User.findByUserId(req.params.userId, user=>{
+    res.render('users/dashboard', {user:user});
+  });
+};
