@@ -16,7 +16,7 @@ class Farm {
     for(var i = 0; i < 9; i++){
       var plot = {};
       plot.isAvailable = i === 0 ? true : false;
-      plot.crop = {};
+      plot.isGrowing = false;
       plot.cost = Math.pow(10, i);
       this.plots.push(plot);
     }

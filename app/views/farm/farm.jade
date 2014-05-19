@@ -1,4 +1,4 @@
-table#farm(data-user='#{farm.userId}')
+table#farmplots(data-user='#{farm.userId}')
   tbody
     - for(var i = 0; i < 3; i++)
       tr
@@ -6,29 +6,15 @@ table#farm(data-user='#{farm.userId}')
           td.plot(data-plot='#{(i*3)+j}')
             .farm-plot
             .plot-controls
+              if (farm.plots[(i*3)+j].crop)
+                if (farm.plots[(i*3)+j].crop.isMature)
+                  button.harvest Harvest
+              if (farm.plots[(i*3)+j].isGrowing)
+                span= farm.plots[(i*3)+j].crop.type
               if (farm.plots[(i*3)+j].isAvailable)
+                select#crop
+                  option Corn
+                  option Tobacco
                 button.plant Plant
-              else
+              if (!farm.plots[(i*3)+j].isGrowing && !farm.plots[(i*3)+j].isAvailable && !farm.plots[(i*3)+j].crop)
                 button.buy $#{farm.plots[(i*3)+j].cost}
-
-    //- tr
-    //-   td.plot(data-plot='1')
-    //-     button.plant Plant
-    //-   td.plot(data-plot='2')
-    //-     button.buy Buy
-    //-   td.plot(data-plot='3')
-    //-     button.buy Buy
-    //- tr
-    //-   td.plot(data-plot='4')
-    //-     button.buy Buy
-    //-   td.plot(data-plot='5')
-    //-     button.buy Buy
-    //-   td.plot(data-plot='6')
-    //-     button.buy Buy
-    //- tr
-    //-   td.plot(data-plot='7')
-    //-     button.buy Buy
-    //-   td.plot(data-plot='8')
-    //-     button.buy Buy
-    //-   td.plot(data-plot='9')
-    //-     button.buy Buy

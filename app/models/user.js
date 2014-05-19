@@ -10,11 +10,53 @@ class User {
     this.wood = 0;
     this.ore = 0;
     this.food = 10;
-    this.cash = 0;
-    this.seeds = [];
-    this.workers = [];
+    this.cash = 500;
     this.consumption = 1;
+
+    var seeds = {};
+    seeds.corn = 0;
+    seeds.tobacco = 0;
+    this.seeds = seeds;
+
+    var worker = {};
+    worker.harvester = false;
+    this.workers = worker;
   }
+
+  hire(type, fn){
+    switch(type){
+      case 'harvester':
+        if(this.cash >= 400){
+          this.workers.harvester = true;
+          this.cash -= 400;
+          fn();
+        break;
+       }
+    }
+  }
+
+  buy(crop, qty, fn){
+    if(this.cash >= (crop.cost  * (qty*1))){
+      switch(crop.type){
+        case 'corn':
+          this.seeds.corn += (qty*1);
+          this.cash -= (crop.cost * (qty*1));
+          fn();
+          break;
+        case 'tobacco':
+          this.seeds.tobacco += (qty*1);
+          this.cash -= (crop.cost * (qty*1));
+          fn();
+      }
+    } else {
+      fn();
+    }
+  }
+  //
+  // seedTypes(){
+  //   this.seeds.corn = 0;
+  //   this.seeds.tobacco = 0;
+  // }
 
   // isPlantable(dataplot){
   //   return (dataplot <= this.plots);
